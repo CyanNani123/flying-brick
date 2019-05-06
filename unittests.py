@@ -3,6 +3,7 @@ Python 3.7.2
 '''
 
 import unittest, threading
+from flyingbrick import *
 from screen import *
 
     
