@@ -1,7 +1,5 @@
-'''
-Python 3.7.2
-'''
-
+import sys, os
+sys.path.append(os.path.abspath('src'))
 import unittest, threading
 from flyingbrick import *
 from screen import *
