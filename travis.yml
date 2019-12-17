@@ -1,0 +1,9 @@
+os: windows           
+language: shell       
+before_install:
+  - choco install python --version 3.7.1
+  - python -m pip install --upgrade pip
+  - pip3 install pipenv
+env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+install: python -m pipenv install
+script: python -m pipenv run python -m unittest unittests
