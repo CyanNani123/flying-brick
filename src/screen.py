@@ -1,8 +1,8 @@
 import pygame
-
-#set dummy driver for unix
 import os
-os.environ["SDL_VIDEODRIVER"] = "dummy"
+
+if os.name != 'nt': #check if windows
+    os.environ["SDL_VIDEODRIVER"] = "dummy" #set dummy driver for unix
     
 class Screen():
     def __init__(self,width=400,height=600):
