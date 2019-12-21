@@ -1,7 +1,3 @@
-'''
-Python 3.7.2
-'''
-
 from hindrance import *
 import pygame, random, time, os
 

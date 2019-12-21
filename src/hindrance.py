@@ -1,7 +1,3 @@
-'''
-Python 3.7.2
-'''
-
 import pygame
 
 class Hindrance():
