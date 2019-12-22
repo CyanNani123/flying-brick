@@ -3,14 +3,20 @@ from flyingbrick import *
 from screen import *
     
 class TestScreen(unittest.TestCase):
+    """Tests the screen object."""
 
     def test_screen_size_on_init(self):
+        """Check the screen size."""
+        
         s = Screen()
         self.assertEqual((400,600),s.screen.get_size())
 
 class TestFlyingBrick(unittest.TestCase):
+    """Tests the game instance."""
 
     def test_brickjump(self):
+        """Check if the brick can jump."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         self.assertEqual(f.init,0)
@@ -20,6 +26,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick_velocity,f.jump_velocity)
      
     def test_apply_gravity(self):
+        """Check if the gravity is applied correctly."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         self.assertEqual(f.brick.x,10)
@@ -33,6 +41,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick.width,60)
 
     def test_boundary_check_negative(self):
+        """Negative test if boundary check is working correctly."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         f.brick = f.brick.move(0,1)
@@ -49,6 +59,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick.width,60)
         
     def test_boundary_check_top(self):
+        """Check if boundary check is working correctly at a top collision."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         f.brick = f.brick.move(0,-1000)
@@ -65,6 +77,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick.width,60)
         
     def test_boundary_check_bottom(self):
+        """Check if boundary check is working correctly at a bottom collision."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         f.brick = f.brick.move(0,1000)
@@ -81,6 +95,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick.width,60)
         
     def test_boundary_check_hindrance_passes(self):
+        """Check if boundary check is working correctly when a hindrance is passed."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         #positive test
@@ -95,6 +111,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(len(f.object_buffer),1)
         
     def test_check_collision_with_hindrance_top(self):
+        """Check if boundary check is working correctly when a hindrance is hit at the top."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         f.score = 0
@@ -105,6 +123,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(len(f.object_buffer),0)
         
     def test_check_collision_with_hindrance_bottom(self):
+        """Check if boundary check is working correctly when a hindrance is hit at the bottom."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         f.score = 0
@@ -115,6 +135,8 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(len(f.object_buffer),0)
         
     def test_if_game_initialized(self):
+        """Check if the game is initialized correctly."""
+        
         s = Screen()
         f = Flyingbrick(s.screen)
         #negative test

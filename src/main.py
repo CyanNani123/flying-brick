@@ -3,7 +3,12 @@ from screen import *
 import sys, threading
 
 def game_execution(f):
-    '''standard main function for player interaction'''
+    """Standard main function for player interaction.
+    Executes the game interface.
+    
+    :param Flyingbrick f: A game instance of flyingbrick.
+    """
+    
     while True:
         f.run()
         for e in pygame.event.get():
@@ -15,6 +20,12 @@ def game_execution(f):
                 raise SystemExit()
             
 def game_simulation(f):
+    """A simulation of the game that runs endless.
+    Executes the game interface in a thread and sends input via an algorithm.
+    
+    :param Flyingbrick f: A game instance of flyingbrick.
+    """
+    
     t = threading.Thread(target=game_execution, args=[f,])
     t.start()
     while True:    
@@ -28,13 +39,12 @@ def game_simulation(f):
         else:
             pygame.event.post(pygame.event.Event(pygame.KEYDOWN, {'key':pygame.K_SPACE}))
 
-if __name__ == "__main__": 
-    '''main method, init screen and run game'''
+def cli():
+    """The command line interface main entrypoint."""
     
     if len(sys.argv) == 1:
         sys.argv.append(None)
-    
-     
+        
     s = Screen()
     f = Flyingbrick(s.screen)
     
@@ -44,6 +54,9 @@ if __name__ == "__main__":
         elif sys.argv[1] != None:
             print("python main.py [--help] [--simulate]")
         else:
-            game_execution(f)
+            game_execution(f)    
     except pygame.error:
         raise SystemExit()
+
+if __name__ == "__main__": 
+    cli()

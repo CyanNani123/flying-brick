@@ -2,8 +2,13 @@ from hindrance import *
 import pygame, random, time, os
 
 class Flyingbrick():
+    """The flyingbrick game instance.
+    
+    :param Screen screen: The screen to display the game on.
+    
+    """
+    
     def __init__(self,screen):
-        '''init function of object'''
         #reference screen to write into
         self.screen = screen
         pygame.display.set_caption('Flying Brick')
@@ -27,18 +32,21 @@ class Flyingbrick():
         self.jump_velocity = -25
 
     def brick_jump(self):
-        '''initialize game if not yet done, raise brick velocity to let it jump'''
+        """Initialize game if not yet done, raise brick velocity to let it jump."""
+        
         if not self.init:
             self.init = bool(1)
             self.score = 0
         self.brick_velocity = self.jump_velocity
         
     def apply_gravity(self):
-        '''move brick according to velocity'''
+        """Move brick according to velocity."""
+        
         self.brick = self.brick.move(0,self.brick_velocity)
     
     def show_scoretable_after_death(self):
-        '''read scoretable from file, write new sorted one to file and display on screen'''
+        """Read scoretable from file, write new sorted one to file and display on screen."""
+        
         if os.path.isfile('scoretable.txt'):
             with open('scoretable.txt', 'r') as f:
                 scoretable = [line.strip() for line in f]
@@ -65,7 +73,8 @@ class Flyingbrick():
         pygame.display.update()
     
     def reset_after_death(self):
-        '''show scoretable, reset values to default and wait for keypress after death'''
+        """Show scoretable, reset values to default and wait for keypress after death."""
+        
         self.show_scoretable_after_death()
         self.init = bool(0)
         self.score = 'Press Space'
@@ -80,7 +89,8 @@ class Flyingbrick():
                     raise SystemExit()
         
     def boundary_check(self):
-        '''check boundary collision'''
+        """Check boundary collision."""
+        
         #death condition: collide with ceiling or bottom line
         if self.brick.y < 0 or self.brick.y+self.brick.height > self.height:
             self.reset_after_death()
@@ -92,25 +102,29 @@ class Flyingbrick():
                 self.object_buffer.pop()
         
     def check_collision_with_hindrance(self):
-        '''check collision with hindrance'''
+        """Check collision with hindrance."""
+        
         if self.brick.colliderect(self.object_buffer[0].top) or self.brick.colliderect(self.object_buffer[0].bottom):
             self.reset_after_death()
             self.object_buffer.pop()
             return True
              
     def draw_background(self):
-        '''draw background'''
+        """Draw the game background."""
+        
         pygame.draw.rect(self.screen, pygame.Color(255,255,240), pygame.Rect(0, 0, self.width , self.height))        
     
     def draw_score(self):
-        '''draw score value or default text'''
+        """Draw score value or default text."""
+        
         if type(self.score) is not str:
             self.screen.blit(self.font.render(5*' ' + str(self.score), 1, (0,0,0)), (self.width/2-130, 50))
         else:
             self.screen.blit(self.font.render(str(self.score), 1, (0,0,0)), (self.width/2-130, 50))
     
     def draw_brick_and_score(self):
-        '''draw brick and score'''
+        """Draw brick and score."""
+        
         pygame.draw.rect(self.screen, pygame.Color(255,0,0), self.brick)
         if self.brick_velocity <= self.gravity:
             self.brick_velocity += self.gravity
@@ -119,7 +133,8 @@ class Flyingbrick():
         self.draw_score()
             
     def if_game_initialized(self):
-        '''if init is true apply gravity, check death conditions and spawn new hindrances'''
+        """If init is true apply gravity, check death conditions and spawn new hindrances."""
+        
         if self.init:
             #create hindrance if there is none
             if not len(self.object_buffer):
@@ -138,7 +153,8 @@ class Flyingbrick():
             self.apply_gravity()
               
     def run(self):
-        '''run the game'''
+        """Run the game."""
+        
         time.sleep(1/100)
         self.draw_background()
         self.if_game_initialized()
