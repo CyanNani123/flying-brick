@@ -3,14 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
    
-.. contents:: Table of Contents
-   :depth: 2
+Welcome to the flying-brick documentation!
+===========================================
 
 :ref:`genindex`
 :ref:`modindex`
 :ref:`search`
+   
+.. contents:: Table of Contents
+   :depth: 2
 
 .. mdinclude:: ../../README.md
+   :start-line: 1
 
 The Main Function
 -----------------
