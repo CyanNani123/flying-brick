@@ -183,7 +183,15 @@ class TestFlyingBrick(unittest.TestCase):
         self.assertEqual(f.brick.y, int(f.height / 2) - 40 + f.brick_velocity)
         self.assertEqual(f.brick.height, 40)
         self.assertEqual(f.brick.width, 60)
-
+        
+    def test_add_hindrance_to_object_buffer(self):
+        """Check if a hindrance is added correctly to the object buffer."""
+        
+        s = Screen()
+        f = Flyingbrick(s.screen)
+        self.assertEqual(len(f.object_buffer), 0)
+        f.add_hindrance_to_object_buffer()
+        self.assertEqual(len(f.object_buffer), 1)
 
 if __name__ == "__main__":
     unittest.main()

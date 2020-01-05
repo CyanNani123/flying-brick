@@ -153,6 +153,17 @@ class Flyingbrick():
         else:
             self.brick_velocity = self.gravity
         self.draw_score()
+        
+    def add_hindrance_to_object_buffer(self):
+        """Add hindrance to object buffer."""
+        
+        self.object_buffer.append(
+            Hindrance(
+                self.width + 40,
+                self.height,
+                random.randint(
+                    100,
+                    self.height - 200)))
 
     def if_game_initialized(self):
         """If init is true apply gravity, check death conditions and spawn new hindrances."""
@@ -160,13 +171,7 @@ class Flyingbrick():
         if self.init:
             # create hindrance if there is none
             if not len(self.object_buffer):
-                self.object_buffer.append(
-                    Hindrance(
-                        self.width + 40,
-                        self.height,
-                        random.randint(
-                            100,
-                            self.height - 200)))
+                self.add_hindrance_to_object_buffer()
             self.boundary_check()
             # move hindrance, check collision or update
             if len(self.object_buffer):
