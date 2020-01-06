@@ -145,9 +145,10 @@ class Flyingbrick():
             self.screen.blit(self.font.render(
                 str(self.score), 1, (0, 0, 0)), (self.width / 2 - 130, 50))
 
-    def draw_brick_and_score(self):
-        """Draw brick and score."""
-
+    def draw_elements(self):
+        """Draws screen, then brick, hindrance and score."""
+        
+        self.draw_background()
         if len(self.object_buffer):
             self.object_buffer[0].move_x(-self.hindrance_velocity)
             self.object_buffer[0].draw(self.screen)
@@ -195,7 +196,6 @@ class Flyingbrick():
         """Run the game."""
 
         time.sleep(1 / 100)
-        self.draw_background()
         self.if_game_initialized()
-        self.draw_brick_and_score()
+        self.draw_elements()
         pygame.display.update()
