@@ -111,6 +111,7 @@ class Flyingbrick():
             self.reset_after_death()
             if len(self.object_buffer):
                 self.object_buffer.pop()
+            return True
         # delete hindrance if it passes the boundary
         if len(self.object_buffer):
             if self.object_buffer[0].x + self.object_buffer[0].top.width < 0:
@@ -147,12 +148,15 @@ class Flyingbrick():
     def draw_brick_and_score(self):
         """Draw brick and score."""
 
+        if len(self.object_buffer):
+            self.object_buffer[0].move_x(-self.hindrance_velocity)
+            self.object_buffer[0].draw(self.screen)
         pygame.draw.rect(self.screen, pygame.Color(255, 0, 0), self.brick)
+        self.draw_score()
         if self.brick_velocity <= self.gravity:
             self.brick_velocity += self.gravity
         else:
             self.brick_velocity = self.gravity
-        self.draw_score()
         
     def add_hindrance_to_object_buffer(self):
         """Add hindrance to object buffer."""
@@ -176,18 +180,15 @@ class Flyingbrick():
         """If init is true apply gravity, check death conditions and spawn new hindrances."""
 
         if self.init:
-            # create hindrance if there is none
+            if self.boundary_check():
+                return
             if not len(self.object_buffer):
                 self.add_hindrance_to_object_buffer()
-            self.boundary_check()
-            # move hindrance, check collision or update
-            if len(self.object_buffer):
+            else:
                 if self.check_collision_with_hindrance():
                     return
                 if not self.object_buffer[0].was_passed:
                     self.check_if_hindrance_was_passed()
-                self.object_buffer[0].move_x(-self.hindrance_velocity)
-                self.object_buffer[0].draw(self.screen)
             self.apply_gravity()
 
     def run(self):
