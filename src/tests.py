@@ -9,18 +9,20 @@ from screen import *
 class TestScreen(unittest.TestCase):
     """Tests the screen object."""
 
-    def test_screen_size_on_init(self):
-        """Check the screen size."""
+    def setUp(self):
+        self.s = Screen(headless=True)
 
-        s = Screen()
-        self.assertEqual((400, 600), s.screen.get_size())
+    def test_default_screen_size(self):
+        """Check the default screen size."""
+
+        self.assertEqual((400, 600), self.s.screen.get_size())
 
 
 class TestFlyingBrick(unittest.TestCase):
     """Tests the game instance."""
     
     def setUp(self):
-        self.s = Screen()
+        self.s = Screen(headless=True)
         self.f = Flyingbrick(self.s.screen)
 
     def test_brickjump(self):
