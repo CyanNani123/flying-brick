@@ -1,8 +1,10 @@
-from hindrance import *
-import pygame
+import os
 import random
 import time
-import os
+
+import pygame
+
+from hindrance import *
 
 
 class Flyingbrick():

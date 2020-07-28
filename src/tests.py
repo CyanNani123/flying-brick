@@ -1,7 +1,8 @@
-import sys
 import os
-import unittest
+import sys
 import threading
+import unittest
+
 from flyingbrick import *
 from screen import *
 
